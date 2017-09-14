@@ -1,0 +1,1 @@
+# koa-instance-digest

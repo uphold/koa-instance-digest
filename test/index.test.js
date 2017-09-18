@@ -88,6 +88,16 @@ describe('index', () => {
         .expect(400);
     });
 
+    it('should return 400 if the digest is malformed', () => {
+      app.use(middleware({ algorithms: ['sha-256'] }));
+
+      return request(server)
+        .post('/')
+        .set('Digest', 'foobar')
+        .send({ foo: 'bar' })
+        .expect(400);
+    });
+
     it('should return 400 if the digest algorithm is invalid', () => {
       app.use(middleware({ algorithms: ['sha-256'] }));
 
@@ -155,7 +165,7 @@ describe('index', () => {
 
       return request(server)
         .post('/')
-        .set('Digest', 'sHa-256=eji/gfOD9pQzrW6QDTWz4jhVk/dqe3q11DVbi6Qe4ks=, MD5=m7WPJhkuS6APAeLnsTa72A==')
+        .set('Digest', 'sHa-256=eji/gfOD9pQzrW6QDTWz4jhVk/dqe3q11DVbi6Qe4ks=,MD5=m7WPJhkuS6APAeLnsTa72A==')
         .send({ foo: 'bar' })
         .expect(200);
     });

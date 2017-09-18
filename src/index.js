@@ -14,7 +14,7 @@ const { createHash } = require('crypto');
 
 const { ALGORITHMS, ENCODINGS } = enums;
 const { InvalidConfigurationError, InvalidDigestError, WantDigestError } = errors;
-const REGEXP = /([a-zA-Z0-9_-]+)=([^,]+),?/g;
+const REGEXP = /([^=]+)=([^,]+),?/g;
 
 /**
  * Parse digest.
@@ -63,7 +63,7 @@ function middleware({ algorithms = Object.keys(ALGORITHMS), required = false } =
     const digests = parse(digest);
 
     if (!digests.size) {
-      throw new WantDigestError({ algorithms });
+      throw new InvalidDigestError();
     }
 
     for (const [digestAlgorithm, digestHash] of digests.entries()) {

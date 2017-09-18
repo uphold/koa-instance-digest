@@ -16,7 +16,7 @@ module.exports = class WantDigestError extends HttpError {
    */
 
   constructor({ algorithms }) {
-    algorithms = algorithms.join('; ');
+    algorithms = algorithms.join(', ');
 
     super(400, { headers: { 'Want-Digest': algorithms } });
   }

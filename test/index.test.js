@@ -116,7 +116,7 @@ describe('index', () => {
         .post('/')
         .set('Digest', 'foo=bar')
         .send({ foo: 'bar' })
-        .expect('Want-Digest', 'sha-256; sha-512')
+        .expect('Want-Digest', 'sha-256, sha-512')
         .expect(400);
     });
 

@@ -99,6 +99,7 @@ describe('index', () => {
     });
 
     it('should return 400 if the digest algorithm is invalid', () => {
+      app.use(body());
       app.use(middleware({ algorithms: ['sha-256'] }));
 
       return request(server)
@@ -110,6 +111,7 @@ describe('index', () => {
     });
 
     it('should return 400 if the digest algorithm is not supported', () => {
+      app.use(body());
       app.use(middleware({ algorithms: ['sha-256', 'sha-512'] }));
 
       return request(server)

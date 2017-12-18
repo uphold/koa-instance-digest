@@ -46,6 +46,7 @@ function middleware({ algorithms = Object.keys(ALGORITHMS), required = false } =
   }
 
   return async function instanceDigest(context, next) {
+    const { request: { rawBody } } = context;
     const digest = context.get('Digest');
 
     if (!required && !digest) {
@@ -56,7 +57,7 @@ function middleware({ algorithms = Object.keys(ALGORITHMS), required = false } =
       throw new WantDigestError({ algorithms });
     }
 
-    if (context.request.length === 0) {
+    if (!rawBody || rawBody.length === 0) {
       throw new InvalidDigestError();
     }
 
